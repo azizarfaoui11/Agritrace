@@ -1,0 +1,44 @@
+.qr-scanner {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.qr-reader {
+  width: 100%;
+  min-height: 300px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#qr-reader__scan_region {
+  background: white;
+}
+
+#qr-reader__dashboard {
+  padding: 10px;
+  background: #f8f9fa;
+  border-top: 1px solid #ddd;
+}
+
+#qr-reader__dashboard button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+#qr-reader__dashboard button:hover {
+  background-color: #0056b3;
+}
+
+#qr-reader__status {
+  color: #6c757d;
+  margin: 10px 0;
+  font-size: 14px;
+} 
