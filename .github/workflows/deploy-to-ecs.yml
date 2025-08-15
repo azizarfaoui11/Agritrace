@@ -1,0 +1,105 @@
+name: CI/CD to ECS (Backend + Frontend)
+
+on:
+  push:
+    branches: [main]
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}
+  BACKEND_SERVICE: ${{ secrets.BACKEND_SERVICE }}
+  FRONTEND_SERVICE: ${{ secrets.FRONTEND_SERVICE }}
+  BACKEND_TASK_DEF_TEMPLATE: backend-task-def.json
+  FRONTEND_TASK_DEF_TEMPLATE: frontend-task-def.json
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      #  Checkout
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      #  Set unique image tag
+      - name: Set image tag
+        run: echo "IMAGE_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      # Configure AWS
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # Login to ECR
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
+          docker login --username AWS --password-stdin \
+          ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+
+      # Build & push backend
+      - name: Build and Push backend image
+        run: |
+          docker build -t ${{ secrets.ECR_BACKEND_URI }}:${{ env.IMAGE_TAG }} ./backend
+          docker push ${{ secrets.ECR_BACKEND_URI }}:${{ env.IMAGE_TAG }}
+
+      #  Build & push frontend
+      - name: Build and Push frontend image
+        run: |
+          docker build -t ${{ secrets.ECR_FRONTEND_URI }}:${{ env.IMAGE_TAG }} ./frontend
+          docker push ${{ secrets.ECR_FRONTEND_URI }}:${{ env.IMAGE_TAG }}
+
+      #  Update Backend Task Definition
+      - name: Update backend task definition
+        run: |
+          jq --arg IMG "${{ secrets.ECR_BACKEND_URI }}:${{ env.IMAGE_TAG }}" \
+             '.containerDefinitions[0].image = $IMG' \
+             ${{ env.BACKEND_TASK_DEF_TEMPLATE }} > backend-task-def-updated.json
+
+      #  Register backend Task Definition
+      - name: Register backend task definition
+        id: register-backend
+        run: |
+          BACKEND_TASK_DEF_ARN=$(aws ecs register-task-definition \
+            --cli-input-json file://backend-task-def-updated.json \
+            --query 'taskDefinition.taskDefinitionArn' \
+            --output text)
+          echo "BACKEND_TASK_DEF_ARN=$BACKEND_TASK_DEF_ARN" >> $GITHUB_ENV
+
+      #  Update Backend Service
+      - name: Update backend service
+        run: |
+          aws ecs update-service \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --service ${{ env.BACKEND_SERVICE }} \
+            --task-definition ${{ env.BACKEND_TASK_DEF_ARN }} \
+            --force-new-deployment
+
+      # Update Frontend Task Definition
+      - name: Update frontend task definition
+        run: |
+          jq --arg IMG "${{ secrets.ECR_FRONTEND_URI }}:${{ env.IMAGE_TAG }}" \
+             '.containerDefinitions[0].image = $IMG' \
+             ${{ env.FRONTEND_TASK_DEF_TEMPLATE }} > frontend-task-def-updated.json
+
+      #  Register frontend Task Definition
+      - name: Register frontend task definition
+        id: register-frontend
+        run: |
+          FRONTEND_TASK_DEF_ARN=$(aws ecs register-task-definition \
+            --cli-input-json file://frontend-task-def-updated.json \
+            --query 'taskDefinition.taskDefinitionArn' \
+            --output text)
+          echo "FRONTEND_TASK_DEF_ARN=$FRONTEND_TASK_DEF_ARN" >> $GITHUB_ENV
+
+      #  Update Frontend Service
+      - name: Update frontend service
+        run: |
+          aws ecs update-service \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --service ${{ env.FRONTEND_SERVICE }} \
+            --task-definition ${{ env.FRONTEND_TASK_DEF_ARN }} \
+            --force-new-deployment
