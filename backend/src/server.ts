@@ -41,7 +41,7 @@ mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('✅ Connecté à MongoDB Atlas');
     // Démarrer le serveur uniquement après la connexion à MongoDB
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0',() => {
       console.log(`🚀 Serveur démarré sur le port ${PORT}`);
     });
   })
