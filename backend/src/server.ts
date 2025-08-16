@@ -36,7 +36,8 @@ app.use(express.json());
 // Configuration de la base de données
 const MONGODB_URI = 'mongodb+srv://arfaouimohamedaziz5:M8GA0bf7AST5oo3Z@cluster0.rbfqvzx.mongodb.net/';
 
-// Connexion à MongoDB
+const PORT = parseInt(process.env.PORT || "5000", 10);
+
 mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('✅ Connecté à MongoDB Atlas');
@@ -77,5 +78,3 @@ app.use("/api/chat",chatRoutes);
 
 
 
-// Port
-const PORT = process.env.PORT || 5000; 
