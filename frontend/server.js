@@ -1,14 +1,11 @@
-import express from "express";
-import path from "path";
-
+// server.js
+const express = require("express");
+const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Servir les fichiers statiques du build CRA
 app.use(express.static(path.join(__dirname, "build")));
-
-// Rediriger toutes les routes vers index.html (SPA)
-app.get("*", (_req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
