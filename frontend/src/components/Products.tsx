@@ -50,7 +50,7 @@ const ProduitList: React.FC = () => {
                 {product.image && (
                   <div className="w-full h-48">
                     <img
-                      src={`http://localhost:5000/uploads/${product.image}`}
+                      src={`https://agritrace.azizarfaoui.ip-ddns.com/uploads/${product.image}`}
                       alt={product.libelle}
                       className="object-cover w-full h-full"
                     />

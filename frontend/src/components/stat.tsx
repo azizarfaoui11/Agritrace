@@ -99,7 +99,7 @@ const AdminStats: React.FC = () => {
     const fetchStats = async () => {
       try {
 
-        const res = await axios.get('http://localhost:5000/api/admin/stat');
+        const res = await axios.get('https://agritrace.azizarfaoui.ip-ddns.com/api/admin/stat');
         setStats(res.data);
         
       } catch (error) {
@@ -111,7 +111,7 @@ const AdminStats: React.FC = () => {
 
     const fetchMonthlyStats = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/admin/lots-per-month');
+        const res = await axios.get('https://agritrace.azizarfaoui.ip-ddns.com/api/admin/lots-per-month');
         setMonthlyStats(res.data.stats);
       } catch (error) {
         console.error('Erreur récupération stats mensuelles', error);

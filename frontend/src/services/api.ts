@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || 'https://agritrace.azizarfaoui.ip-ddns.com/api';
 
 // Configure axios with default headers
 axios.interceptors.request.use((config) => {
@@ -169,7 +169,7 @@ export const api = {
 
 
  createVariety : async (data: FormData) => {
-  return await axios.post('http://localhost:5000/api/varieties/create', data, {
+  return await axios.post('https://agritrace.azizarfaoui.ip-ddns.com/api/varieties/create', data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -342,7 +342,7 @@ createCulture: async (data: CreateCultureData) => {
   },*/
 
   createProduit : async (data: FormData) => {
-  return await axios.post('http://localhost:5000/api/produits/create', data, {
+  return await axios.post('https://agritrace.azizarfaoui.ip-ddns.com/api/produits/create', data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -437,7 +437,7 @@ updateStock : async (id: string, zoneData: any) => {
 //for responsable de stockage
  acceptOrder : async (orderId: string) : Promise<void> => {
   try {
-    await axios.put(`http://localhost:5000/api/order/${orderId}/accept`);
+    await axios.put(`https://agritrace.azizarfaoui.ip-ddns.com/api/order/${orderId}/accept`);
     //fetchOrders(); // Recharge les commandes après mise à jour
   } catch (error) {
     console.error('Erreur lors de l’acceptation de la commande', error);
@@ -446,7 +446,7 @@ updateStock : async (id: string, zoneData: any) => {
 //for vendeur
 acceptOrderr : async (orderId: string) : Promise<void> => {
   try {
-    await axios.put(`http://localhost:5000/api/order/${orderId}/accepttt`);
+    await axios.put(`https://agritrace.azizarfaoui.ip-ddns.com/api/order/${orderId}/accepttt`);
     //fetchOrders(); // Recharge les commandes après mise à jour
   } catch (error) {
     console.error('Erreur lors de l’acceptation de la commande', error);

@@ -19,7 +19,7 @@ const ChatModal: React.FC<Props> = ({ conversationId, onClose }) => {
   const [newMessage, setNewMessage] = useState("");
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
-  const API_URL = "http://localhost:5000/api";
+  const API_URL = "https://agritrace.azizarfaoui.ip-ddns.com/api";
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const role = user?.role || "user";
 

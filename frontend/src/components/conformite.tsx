@@ -16,7 +16,7 @@ const ProductsInOrdersTable: React.FC = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/order/productsinorders");
+      const response = await axios.get("https://agritrace.azizarfaoui.ip-ddns.com/api/order/productsinorders");
       setProducts(response.data);
     } catch (error) {
       console.error("Erreur lors du chargement des produits:", error);
@@ -34,7 +34,7 @@ const ProductsInOrdersTable: React.FC = () => {
   };
 
   const handleValoriser = async (product: Product) => {
-    await axios.put(`http://localhost:5000/api/produits/${product._id}/conformite`, {
+    await axios.put(`https://agritrace.azizarfaoui.ip-ddns.com/api/produits/${product._id}/conformite`, {
       conformite: "valoriser",
     });
     setMessage(`le produit avec le libellé  "${product.libelle}" sera valorisé .`);
@@ -43,7 +43,7 @@ const ProductsInOrdersTable: React.FC = () => {
   };
 
   const handleEliminer = async (product: Product) => {
-    await axios.put(`http://localhost:5000/api/produits/${product._id}/conformite`, {
+    await axios.put(`https://agritrace.azizarfaoui.ip-ddns.com/api/produits/${product._id}/conformite`, {
       conformite: "eliminer",
     });
     setMessage(`le produit avec le libellé  "${product.libelle}" sera éliminé.`);

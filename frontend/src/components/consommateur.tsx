@@ -68,7 +68,7 @@ const role = 'Seller' ;
     // Appel à l’API pour changer l’état en `inactif`
     const token = localStorage.getItem('token');
     await axios.post(
-      'http://localhost:5000/api/auth/logout',
+      'https://agritrace.azizarfaoui.ip-ddns.com/api/auth/logout',
       {},
       {
         headers: {

@@ -19,7 +19,7 @@ const ChatSidebar: React.FC<Props> = ({ userId, onSelect, activeConversationId }
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/chat/conversations/${userId}`)
+      .get(`https://agritrace.azizarfaoui.ip-ddns.com/api/chat/conversations/${userId}`)
       .then((res) => setConversations(res.data))
       .catch((err) => console.error("Erreur chargement conversations", err));
   }, [userId]);

@@ -38,7 +38,7 @@ const OrdersPageAdmin: React.FC = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/order/all');
+      const res = await axios.get('https://agritrace.azizarfaoui.ip-ddns.com/api/order/all');
       setOrders(res.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des commandes', error);

@@ -66,7 +66,7 @@ const Transformateur: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:5000/api/auth/logout",
+        "https://agritrace.azizarfaoui.ip-ddns.com/api/auth/logout",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

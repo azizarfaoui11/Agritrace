@@ -15,7 +15,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ role, conversationId: propConversatio
 
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
-  const API_URL = "http://localhost:5000/api";
+  const API_URL = "https://agritrace.azizarfaoui.ip-ddns.com/api";
 
   // 🎨 Couleurs personnalisées
   const roleColors = {

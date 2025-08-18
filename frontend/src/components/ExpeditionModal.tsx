@@ -84,7 +84,7 @@ const ExpeditionModal = ({
   useEffect(() => {
   const fetchOrderDetails = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/order/${orderId}`, {
+      const { data } = await axios.get(`https://agritrace.azizarfaoui.ip-ddns.com/api/order/${orderId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -105,7 +105,7 @@ const ids = data.products.map((p: any) => p._id); // ✅ simple et fonctionnel
   const handleCreateExpedition = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/api/expeditions/create",
+        "https://agritrace.azizarfaoui.ip-ddns.com/api/expeditions/create",
         { ...formData, order: orderId, emissionCO2 },
         {
           headers: {
@@ -115,7 +115,7 @@ const ids = data.products.map((p: any) => p._id); // ✅ simple et fonctionnel
       );
 
       await axios.put(
-        `http://localhost:5000/api/order/${orderId}/acceptt`,
+        `https://agritrace.azizarfaoui.ip-ddns.com/api/order/${orderId}/acceptt`,
         {},
         {
           headers: {

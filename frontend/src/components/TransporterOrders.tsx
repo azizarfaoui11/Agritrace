@@ -12,7 +12,7 @@ const TransporterOrders = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/order/shipped", {
+      .get("https://agritrace.azizarfaoui.ip-ddns.com/api/order/shipped", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((res) => setOrders(res.data))
@@ -28,7 +28,7 @@ const TransporterOrders = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:5000/api/auth/logout",
+        "https://agritrace.azizarfaoui.ip-ddns.com/api/auth/logout",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

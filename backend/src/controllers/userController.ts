@@ -18,6 +18,12 @@ export const getProfile = async (req: AuthRequest, res: Response):Promise<void> 
   }
 }; 
 
+export const backendHealth  = async (req: Request, res: Response):Promise<void> => {
+  
+    res.status(500).json({ message: 'Erreur serveur' });
+  
+}; 
+
 
 
 
