@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://agritrace.azizarfaoui.ip-ddns.com/api';
+const API_URL = 'https://agritrace.azizarfaoui.ip-ddns.com/api';
 
 // Configure axios with default headers
 axios.interceptors.request.use((config) => {
