@@ -1,5 +1,5 @@
 {
-  "family": "myapp-task",
+  "family": "frontend-task",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "512",
@@ -14,7 +14,15 @@
           "protocol": "tcp"
         }
       ],
-      "essential": true
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/frontend-task",
+          "awslogs-region": "AWS_REGION_PLACEHOLDER",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
     }
   ],
   "executionRoleArn": "arn:aws:iam::197304876963:role/ecsTaskExecutionRole"
