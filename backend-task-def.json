@@ -4,6 +4,7 @@
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "512",
   "memory": "1024",
+  "taskRoleArn": "arn:aws:iam::197304876963:role/ecsTaskRole-ExecuteCommand",
   "containerDefinitions": [
     {
       "name": "backend",
@@ -34,7 +35,7 @@
       "name": "uploads-volume",
       "efsVolumeConfiguration": {
         "fileSystemId": "fs-0c756f6d1fe3e95e5",
-        "rootDirectory": "/uploads",  
+        "rootDirectory": "/uploads",
         "transitEncryption": "ENABLED"
       }
     }
