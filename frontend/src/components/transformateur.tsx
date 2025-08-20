@@ -122,7 +122,7 @@ const Transformateur: React.FC = () => {
     >
       {product.image && (
         <img
-          src={`http://localhost:5000/uploads/${product.image}`}
+          src={`https://agritrace.azizarfaoui.ip-ddns.com/uploads/${product.image}`}
           alt={product.name}
           className="w-full h-40 object-cover rounded-xl mb-3"
         />
@@ -170,7 +170,7 @@ const Transformateur: React.FC = () => {
 
             {selectedProduct.variety?.image && (
               <img
-                src={`http://localhost:5000/uploads/${selectedProduct.variety.image}`}
+                src={`http://agritrace.azizarfaoui.ip-ddns.com/uploads/${selectedProduct.variety.image}`}
                 alt={selectedProduct.variety.name}
                 className="w-full h-60 object-cover rounded-xl shadow-sm"
               />

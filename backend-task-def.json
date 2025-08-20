@@ -9,12 +9,16 @@
       "name": "backend",
       "image": "BACKEND_IMAGE_PLACEHOLDER",
       "portMappings": [
-        {
-          "containerPort": 5000,
-          "protocol": "tcp"
-        }
+        { "containerPort": 5000, "protocol": "tcp" }
       ],
       "essential": true,
+      "mountPoints": [
+        {
+          "sourceVolume": "uploads-volume",
+          "containerPath": "/app/uploads",
+          "readOnly": false
+        }
+      ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -22,6 +26,16 @@
           "awslogs-region": "AWS_REGION_PLACEHOLDER",
           "awslogs-stream-prefix": "ecs"
         }
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "name": "uploads-volume",
+      "efsVolumeConfiguration": {
+        "fileSystemId": "fs-0c756f6d1fe3e95e5",
+        "rootDirectory": "/uploads",  
+        "transitEncryption": "ENABLED"
       }
     }
   ],

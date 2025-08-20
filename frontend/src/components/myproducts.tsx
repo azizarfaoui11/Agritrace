@@ -53,7 +53,7 @@ const MyProducts: React.FC = () => {
 >
   {product.image && (
     <img
-      src={`http://localhost:5000/uploads/${product.image}`}
+      src={`https://agritrace.azizarfaoui.ip-ddns.com/uploads/${product.image}`}
       alt={product.libelle}
       className="w-full h-40 object-cover rounded-md mb-3"
     />

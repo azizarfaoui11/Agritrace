@@ -61,7 +61,7 @@ app.use('/api/environment', EnvironmentRoutes);
 app.use('/api/storage-conditions', StorageConditionRoutes);
 app.use('/api/transport-conditions', TransportConditionRoutes);
 app.use('/api/varieties', VarietyRoutes);
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/uploads', express.static(path.join(__dirname,'/app/uploads')));
 app.use('/api/order', orderRoutes);
 app.use("/api/cultures", cultureRoutes);
 app.use("/api/stocks", stockRoutes);
