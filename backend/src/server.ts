@@ -52,6 +52,7 @@ mongoose.connect(MONGODB_URI)
   });
 
 // Routes
+app.use('/uploads', express.static('/app/uploads'));
 app.use('/api/auth', authRoutes);
 app.use('/api/user' , userRoutes);
 app.use('/api/admin' , adminRoutes);
@@ -61,8 +62,6 @@ app.use('/api/environment', EnvironmentRoutes);
 app.use('/api/storage-conditions', StorageConditionRoutes);
 app.use('/api/transport-conditions', TransportConditionRoutes);
 app.use('/api/varieties', VarietyRoutes);
-//app.use('/uploads', express.static(path.join(__dirname,'/app/uploads')));
-app.use('/uploads', express.static('/app/uploads'));
 app.use('/api/order', orderRoutes);
 app.use("/api/cultures", cultureRoutes);
 app.use("/api/stocks", stockRoutes);
@@ -76,6 +75,4 @@ app.use("/api/chat",chatRoutes);
 
 
 
-
-
-
+ 
