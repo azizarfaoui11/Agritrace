@@ -8,9 +8,6 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN mkdir -p /app/uploads
-
-
 FROM node:20-alpine
 
 WORKDIR /app
