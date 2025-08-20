@@ -29,7 +29,7 @@ export default function Home() {
       <div className="text-center mb-12">
   <h1 className="text-4xl font-extrabold text-white">Bienvenue sur notre plateforme</h1>
   <h2 className="mt-2 text-6xl font-bold text-gradient ">
-  Trace Agri To ecs second
+  Trace Agri 
 </h2>
 
 </div>

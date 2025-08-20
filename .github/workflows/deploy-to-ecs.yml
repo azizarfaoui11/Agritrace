@@ -103,3 +103,4 @@ jobs:
             --service ${{ env.FRONTEND_SERVICE }} \
             --task-definition ${{ env.FRONTEND_TASK_DEF_ARN }} \
             --force-new-deployment
+ 
