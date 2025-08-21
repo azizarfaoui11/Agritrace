@@ -1,44 +1,82 @@
 {
-  "family": "backend-task",
+  "family": "backend-taskk",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
-  "cpu": "512",
-  "memory": "1024",
+  "cpu": "1024",
+  "memory": "3072",
   "taskRoleArn": "arn:aws:iam::197304876963:role/ecsTaskRole-ExecuteCommand",
+  "executionRoleArn": "arn:aws:iam::197304876963:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "name": "backend",
       "image": "BACKEND_IMAGE_PLACEHOLDER",
+      "cpu": 0,
       "portMappings": [
-        { "containerPort": 5000, "protocol": "tcp" }
+        {
+          "name": "backend",
+          "containerPort": 5000,
+          "hostPort": 5000,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
       ],
       "essential": true,
+      "environment": [],
+      "environmentFiles": [],
       "mountPoints": [
         {
-          "sourceVolume": "uploads-volume",
+          "sourceVolume": "agritrace-volume",
           "containerPath": "/app/uploads",
           "readOnly": false
         }
       ],
+      "volumesFrom": [],
+      "ulimits": [],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/backend-task",
-          "awslogs-region": "AWS_REGION_PLACEHOLDER",
+          "awslogs-group": "/ecs/backend-taskk",
+          "awslogs-create-group": "true",
+          "awslogs-region": "eu-north-1",
           "awslogs-stream-prefix": "ecs"
-        }
-      }
+        },
+        "secretOptions": []
+      },
+      "systemControls": []
+    },
+    {
+      "name": "aws-otel-collector",
+      "image": "public.ecr.aws/aws-observability/aws-otel-collector:v0.44.0",
+      "cpu": 0,
+      "portMappings": [],
+      "essential": true,
+      "command": ["--config=/etc/ecs/ecs-cloudwatch.yaml"],
+      "environment": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/ecs-aws-otel-sidecar-collector",
+          "mode": "non-blocking",
+          "awslogs-create-group": "true",
+          "max-buffer-size": "25m",
+          "awslogs-region": "eu-north-1",
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      },
+      "systemControls": []
     }
   ],
   "volumes": [
     {
-      "name": "uploads-volume",
+      "name": "agritrace-volume",
       "efsVolumeConfiguration": {
         "fileSystemId": "fs-0c756f6d1fe3e95e5",
         "rootDirectory": "/uploads",
         "transitEncryption": "ENABLED"
       }
     }
-  ],
-  "executionRoleArn": "arn:aws:iam::197304876963:role/ecsTaskExecutionRole"
+  ]
 }

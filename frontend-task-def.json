@@ -2,28 +2,42 @@
   "family": "frontend-task",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
-  "cpu": "512",
-  "memory": "1024",
+  "cpu": "1024",
+  "memory": "3072",
+  "taskRoleArn": "arn:aws:iam::197304876963:role/ecsTaskRole-ExecuteCommand",
+  "executionRoleArn": "arn:aws:iam::197304876963:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "name": "frontend",
       "image": "FRONTEND_IMAGE_PLACEHOLDER",
+      "cpu": 0,
       "portMappings": [
         {
+          "name": "frontend",
           "containerPort": 80,
-          "protocol": "tcp"
+          "hostPort": 80,
+          "protocol": "tcp",
+          "appProtocol": "http"
         }
       ],
       "essential": true,
+      "environment": [],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "ulimits": [],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/frontend-task",
-          "awslogs-region": "AWS_REGION_PLACEHOLDER",
+          "awslogs-create-group": "true",
+          "awslogs-region": "eu-north-1",
           "awslogs-stream-prefix": "ecs"
-        }
-      }
+        },
+        "secretOptions": []
+      },
+      "systemControls": []
     }
   ],
-  "executionRoleArn": "arn:aws:iam::197304876963:role/ecsTaskExecutionRole"
+  "volumes": []
 }
