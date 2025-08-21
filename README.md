@@ -4,3 +4,4 @@ deployecs2.0
 deployecs3.0
 deployecs4.0
 testdeploy5.0
+deploy6.0
